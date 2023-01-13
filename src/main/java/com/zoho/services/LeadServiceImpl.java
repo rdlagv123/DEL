@@ -33,5 +33,10 @@ LeadRepository leadRepo;
 		List<Lead> leads = leadRepo.findAll();
 		return leads;
 	}
+	@Override
+	public void saveOneLead(Lead lead) {
+		leadRepo.save(lead);
+		
+	}
 
 }

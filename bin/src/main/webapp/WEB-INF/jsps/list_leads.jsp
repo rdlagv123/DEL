@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="menu.jsp"%>
+<%@ include file="menu.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,6 @@
 
 <body>
 	<h2>List Leads</h2>
-	
 	<table>
 		<tr>
 			<th>FirstName</th>
@@ -20,9 +19,6 @@
 			<th>email</th>
 			<th>Mobile</th>
 			<th>Source</th>
-			<th>SentToContact?</th>
-			<th>Update</th>
-			<th>Delete</th>
 		</tr>
 		<c:forEach var="lead" items="${leads}">
 			<tr>
@@ -31,12 +27,8 @@
 				<td>${lead.email }</td>
 				<td>${lead.mobile }</td>
 				<td>${lead.source }</td>
-				<td><a href="listleadToContact?id=${lead.id }">SendToContact</a></td>
-				<td><a href="updateLead?id=${lead.id }">Update</a></td>
-				<td><a href="deleteLead?id=${lead.id }">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-	${msg }
 </body>
 </html>

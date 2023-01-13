@@ -55,4 +55,26 @@ public String viewcreateLeadForm() {
 		model.addAttribute("leads",leads);
 		return "list_leads";
 	}
+	@RequestMapping("/updateLead")
+	public String updateLead(@RequestParam("id") long id,Model model) {
+		Lead lead = leadService.getLeadById(id);
+		model.addAttribute("lead",lead);
+		return "update_Lead";
+	}
+	@RequestMapping("/last")
+	public String UpdateLeadDetails(@ModelAttribute("lead")Lead lead,Model model) {
+		
+		leadService.saveOneLead(lead);
+		List<Lead> leads = leadService.getAllLeads();
+		model.addAttribute("leads",leads);
+		return "list_leads";
+	}
+	@RequestMapping("/deleteLead")
+	public String deleteLead(@RequestParam("id") long id,Model model) {
+		leadService.deleteLeadById(id);
+		List<Lead> leads = leadService.getAllLeads();
+		model.addAttribute("leads",leads);
+		model.addAttribute("msg","Record is successfully deleted");
+		return "list_leads";
+	}
 }

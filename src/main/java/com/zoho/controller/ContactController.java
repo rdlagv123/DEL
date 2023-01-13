@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zoho.entities.Billing;
 import com.zoho.entities.Contacts;
+import com.zoho.entities.Lead;
 import com.zoho.services.BillingService;
 import com.zoho.services.ContactService;
+import com.zoho.services.LeadService;
 
 @Controller
 public class ContactController {
@@ -19,6 +21,8 @@ public class ContactController {
 ContactService contactService;
 @Autowired
 BillingService billService;
+@Autowired
+LeadService leadService;
 @RequestMapping("/listContacts")
 public String getAllContacts(Model model) {
 	List<Contacts> contacts = contactService.getContacts();
@@ -44,7 +48,27 @@ public String showBill(@RequestParam("id") long id,Model model) {
 		model.addAttribute("bills",bills);
 		return "show_Bill";
 }
+@RequestMapping("/listleadToContact")
+public String listleadToContact(@RequestParam("id") long id,Model model) {
+	Lead lead = leadService.getLeadById(id);
 	
+	Contacts contact = new Contacts();
+	
+	contact.setFirstName(lead.getFirstName());
+	contact.setLastName(lead.getLastName());
+	contact.setEmail(lead.getEmail());
+	contact.setMobile(lead.getMobile());
+	contact.setSource(lead.getSource());
+	
+	contactService.SaveContact(contact);
+	leadService.deleteLeadById(id);
+	
+	List<Contacts> contacts =contactService.getContacts();
+	model.addAttribute("contacts", contacts);
+	
+	return "list_contacts";
+}
+
 	
 }
 
